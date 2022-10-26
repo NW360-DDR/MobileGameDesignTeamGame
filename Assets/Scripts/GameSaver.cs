@@ -1,3 +1,6 @@
+// GameSaver.cs -> This script handles the data saving for the Bao Bunny project.
+// Written by Nathaniel Owens, 10/20/2022.
+// You may use parts of this code in your own projects provided you credit me at the top of your file and next to where the code is used.
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -6,9 +9,9 @@ using UnityEngine.SceneManagement;
 public class GameSaver : MonoBehaviour
 {
     // PUBLIC VARIABLES: These can be accessed from anywhere, like in a minigame script.
-    public int wheatCount;
+    public int hunger;
+    public int clean;
     public int friendship;
-    public bool hasFedFriend;
     // PRIVATE VARIABLES: These can only be read and used inside this script.
     DateTime MeaningfulLogin;
     DateTime CurrentLogin;
@@ -27,13 +30,11 @@ public class GameSaver : MonoBehaviour
     // Example: PlayerPrefs.SetFloat("PoundsOfBeef", BeefAmount);
     public void Save()
     {
-        if (hasFedFriend)
-        {
-            MeaningfulLogin = DateTime.Now;
-        }
+        MeaningfulLogin = DateTime.Now;
         PlayerPrefs.SetString("Meaningful", MeaningfulLogin.ToString());
-        PlayerPrefs.SetInt("Wheat", wheatCount);
+        PlayerPrefs.SetInt("Hunger", hunger);
         PlayerPrefs.SetInt("Friendship", friendship);
+        PlayerPrefs.SetInt("Cleanliness", clean);
         PlayerPrefs.Save();
         Debug.Log("Game Saved at " + MeaningfulLogin);
     }
@@ -46,7 +47,8 @@ public class GameSaver : MonoBehaviour
         MeaningfulLogin = DateTime.Parse(PlayerPrefs.GetString("Meaningful"));
         // This debug log exists to make sure that parsing worked properly.
         Debug.Log(MeaningfulLogin.ToString());
-        wheatCount = PlayerPrefs.GetInt("Wheat");
+        hunger = PlayerPrefs.GetInt("Hunger");
         friendship = PlayerPrefs.GetInt("Friendship");
+        clean = PlayerPrefs.GetInt("Cleanliness");
     }
 }
