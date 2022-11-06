@@ -56,7 +56,7 @@ public class GameManager : MonoBehaviour
     {
         // Prevents us from having values above our set maximum 
         val = Mathf.Min(val, maxBarVal);
-        TheBar.sizeDelta = new Vector2((MaxBarLength / maxBarVal) * val, TheBar.rect.height);
+        TheBar.sizeDelta = new Vector2((float)(MaxBarLength / maxBarVal) * val, TheBar.rect.height);
     }
     //Generic version of UpdateBar that automatically updates all three rather than just one
     public void UpdateBar()

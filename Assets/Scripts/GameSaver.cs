@@ -12,6 +12,7 @@ public class GameSaver : MonoBehaviour
     public int hunger;
     public int clean;
     public int friendship;
+    public int maxVal = 100;
     // PRIVATE VARIABLES: These can only be read and used inside this script.
     DateTime MeaningfulLogin;
     DateTime CurrentLogin;
