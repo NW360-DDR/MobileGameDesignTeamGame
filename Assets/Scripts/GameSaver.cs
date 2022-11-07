@@ -13,6 +13,7 @@ public class GameSaver : MonoBehaviour
     public int clean;
     public int friendship;
     public int maxVal = 100;
+    public int decayVal = 4; //How much we lower a stat by per hour of neglect.
     // PRIVATE VARIABLES: These can only be read and used inside this script.
     DateTime MeaningfulLogin;
     DateTime CurrentLogin;
@@ -21,8 +22,8 @@ public class GameSaver : MonoBehaviour
     // Later versions plan to include a check to see how long since the last play.
     void Start()
     {
-        Load();
         CurrentLogin = DateTime.Now;
+        Load();
         Debug.Log("Current Time is: " + CurrentLogin.ToString());
     }
     //Saves the values such as Wheat, Friendship, and Meaningful.
@@ -48,8 +49,22 @@ public class GameSaver : MonoBehaviour
         MeaningfulLogin = DateTime.Parse(PlayerPrefs.GetString("Meaningful"));
         // This debug log exists to make sure that parsing worked properly.
         Debug.Log(MeaningfulLogin.ToString());
+
         hunger = PlayerPrefs.GetInt("Hunger");
         friendship = PlayerPrefs.GetInt("Friendship");
         clean = PlayerPrefs.GetInt("Cleanliness");
+
+        // And now we must commit the act of changing the values based on time passed.
+        for (int i = 0; i < (int) CurrentLogin.Subtract(MeaningfulLogin).TotalHours; i++)
+        {
+            hunger -= decayVal;
+            friendship -= decayVal;
+            clean -= decayVal;
+        }
+
+        // Make sure nothing is below 0, and then make sure nothing is above the max. It shouldn't be above the max, but... paranoia.
+        hunger = Math.Max(hunger, 0);
+        friendship = Math.Max(friendship, 0);
+        clean = Math.Max(clean, 0);
     }
 }

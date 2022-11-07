@@ -31,6 +31,10 @@ public class MessScript : MonoBehaviour
             if (health <= 0)
             {
                 Saver.clean += 10;
+                if (Saver.clean > Saver.maxVal)
+                {
+                    Saver.clean = Saver.maxVal;
+                }
                 GM.UpdateBar();
                 Destroy(gameObject);
             }
