@@ -12,6 +12,7 @@ public class BunnyPatScript : MonoBehaviour
     public GameObject ParentUI;
     public GameObject Bunny;
     public GameObject BackButton;
+    public Animator animator;
 
     [SerializeField] bool isActive = false;
     float patTotal = 0.0f;
@@ -47,15 +48,20 @@ public class BunnyPatScript : MonoBehaviour
         if (isActive && Input.touchCount > 0)
         {
             fingy = Input.GetTouch(0);
+            animator.SetFloat("Pet", 0);
             if (fingy.phase == TouchPhase.Began)
             {
+                
                 oldPos = fingy.position;
             }
             else if (fingy.phase == TouchPhase.Moved)
             {
+                animator.SetFloat("Pet", 1);
                 patTotal += (CalcDist(oldPos, fingy.position));
                 if (patTotal >= 1)
                 {
+                    
+
                     patTotal -= 1;
                     Saver.friendship += 1;
                     if (Saver.friendship > Saver.maxVal)

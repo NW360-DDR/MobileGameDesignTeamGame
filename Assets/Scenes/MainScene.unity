@@ -2526,6 +2526,7 @@ MonoBehaviour:
   clean: 0
   friendship: 0
   maxVal: 100
+  decayVal: 4
 --- !u!4 &1515843467
 Transform:
   m_ObjectHideFlags: 0
