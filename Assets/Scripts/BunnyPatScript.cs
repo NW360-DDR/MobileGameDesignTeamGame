@@ -1,5 +1,5 @@
 // BunnyPatScript.cs -> This script handles the Petting minigame for the Bao Bunny project.
-// Written by Nathaniel Owens, 10/26/2022.
+// Written by Nathaniel Owens, 11/07/2022.
 // You may use parts of this code in your own projects provided you credit me at the top of your file and next to where the code is used.
 using System.Collections;
 using System.Collections.Generic;
@@ -48,7 +48,7 @@ public class BunnyPatScript : MonoBehaviour
         if (isActive && Input.touchCount > 0)
         {
             fingy = Input.GetTouch(0);
-            animator.SetFloat("Pet", 0);
+            animator.SetFloat("Pet", 1);
             if (fingy.phase == TouchPhase.Began)
             {
                 
@@ -56,7 +56,6 @@ public class BunnyPatScript : MonoBehaviour
             }
             else if (fingy.phase == TouchPhase.Moved)
             {
-                animator.SetFloat("Pet", 1);
                 patTotal += (CalcDist(oldPos, fingy.position));
                 if (patTotal >= 1)
                 {
@@ -71,6 +70,10 @@ public class BunnyPatScript : MonoBehaviour
                     GM.UpdateBar();
                 }
             }
+        }
+        else
+        {
+            animator.SetFloat("Pet", 0);
         }
     }
 }
