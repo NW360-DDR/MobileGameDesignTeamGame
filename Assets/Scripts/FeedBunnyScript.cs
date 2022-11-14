@@ -21,7 +21,6 @@ public class FeedBunnyScript: MonoBehaviour
     // Stuff for the Carrot
     Touch tipTap;
     float deltaX, deltaY;
-    float carrotVelocity;
     public AudioSource jej;
     public AudioClip fof;
     public Animator animator;

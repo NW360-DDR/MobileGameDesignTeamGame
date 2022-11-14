@@ -28,6 +28,14 @@ public class GameManager : MonoBehaviour
     public RectTransform hungerRect;
     public RectTransform cleanRect;
 
+    public AudioClip sound;
+    public AudioSource speak;
+
+    public void makeNoise()
+    {
+        speak.PlayOneShot(sound);
+    }
+
     //~~~~~~~~~~~~~~~VARIABLES~~~~~~~~~~~~~~
     int maxBarVal = 100;
     [SerializeField] int MaxBarLength;
