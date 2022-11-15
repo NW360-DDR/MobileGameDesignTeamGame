@@ -21,6 +21,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] GameObject HungerBar;
     [SerializeField] GameObject CleanBar;
     [SerializeField] GameObject HappyBar;
+    public Animator animator;
 
     //~~~~~~~~~~~~~PROGRESS BARS~~~~~~~~~~~~
     // Doing it like this takes more memory but makes it a tad easier to edit the width later.
@@ -46,6 +47,7 @@ public class GameManager : MonoBehaviour
     {
         SM.Load();
         UpdateBar();
+        StartCoroutine("Stretch");
     }
 
     // Update is called once per frame
@@ -56,6 +58,16 @@ public class GameManager : MonoBehaviour
         {
             SM.Save();
             elapsed = 0;
+        }
+    }
+    IEnumerator Stretch()
+    {
+        while (true)
+        {
+            yield return new WaitForSeconds(15);
+            animator.SetTrigger("Stand");
+            yield return new WaitForSeconds(1);
+            animator.ResetTrigger("Stand");
         }
     }
 

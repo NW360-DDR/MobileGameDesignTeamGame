@@ -33,7 +33,8 @@ public class FeedBunnyScript: MonoBehaviour
         BackButton.SetActive(true);
         ParentUI.SetActive(false);
         temp = Instantiate(Carrot);
-        temp.transform.position = Camera.main.ScreenToWorldPoint(new Vector2(Screen.width * 0.5f, Screen.height* 0.8f) );
+        temp.transform.position = Camera.main.ScreenToWorldPoint(new Vector2(Screen.width * 0.5f, Screen.height* 0.8f));
+        animator.SetFloat("Antici", 1);
     }
 
     public void Deactivate()
@@ -47,6 +48,9 @@ public class FeedBunnyScript: MonoBehaviour
         }
         Saver.Save();
         animating = false;
+        animator.SetFloat("Antici", 0);
+        animator.SetFloat("Chew", 0);
+        carrotCount = 0;
     }
 
     void Update()
@@ -72,6 +76,7 @@ public class FeedBunnyScript: MonoBehaviour
 
     IEnumerator HungyBoi()
     {
+        animator.SetFloat("Antici", 0);
         animator.SetFloat("Chew", 1);
         bool gaming = true;
         while (gaming)
@@ -86,11 +91,8 @@ public class FeedBunnyScript: MonoBehaviour
             carrotCount++;
             if (carrotCount >= 3)
             {
-                Destroy(temp);
                 Deactivate();
                 gaming = false;
-                animator.SetFloat("Chew", 0);
-                carrotCount = 0;
             }
             yield return new WaitForSeconds(1.5f);
         }

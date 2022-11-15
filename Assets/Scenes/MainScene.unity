@@ -2448,6 +2448,7 @@ MonoBehaviour:
   HungerBar: {fileID: 876529291}
   CleanBar: {fileID: 706099564}
   HappyBar: {fileID: 1662532113}
+  animator: {fileID: 955245436}
   happyRect: {fileID: 1335350316}
   hungerRect: {fileID: 1898008162}
   cleanRect: {fileID: 308255958}
