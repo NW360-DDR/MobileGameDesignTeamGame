@@ -24,9 +24,9 @@ public class GameSaver : MonoBehaviour
     {
         CurrentLogin = DateTime.Now;
         Load();
-        Debug.Log("Current Time is: " + CurrentLogin.ToString());
+        // Debug.Log("Current Time is: " + CurrentLogin.ToString());
     }
-    //Saves the values such as Wheat, Friendship, and Meaningful.
+    //Saves the values such as Clean, Friendship, and Meaningful.
     // To add more to the Save function, it either needs to be an int, a float, or
     // converted to a string by something like a ToString() command.
     // Example: PlayerPrefs.SetFloat("PoundsOfBeef", BeefAmount);
@@ -38,17 +38,17 @@ public class GameSaver : MonoBehaviour
         PlayerPrefs.SetInt("Friendship", friendship);
         PlayerPrefs.SetInt("Cleanliness", clean);
         PlayerPrefs.Save();
-        Debug.Log("Game Saved at " + MeaningfulLogin);
+        // Debug.Log("Game Saved at " + MeaningfulLogin);
     }
-    //Similarly, loads everything into the proper values.
+    // Similarly, loads everything into the proper values.
     // When converting from a string to another data type, make sure you know HOW to do it.
     // DateTime has a built in function to parse it, but other data types may require
     // a flat out typecast, like doubleVar = (double) PlayerPrefs.GetString("doubleVar");
     public void Load()
     {
         MeaningfulLogin = DateTime.Parse(PlayerPrefs.GetString("Meaningful"));
-        // This debug log exists to make sure that parsing worked properly.
-        Debug.Log(MeaningfulLogin.ToString());
+        // This debug log exists to make sure that parsing worked properly. We don't need it anymore, but it's here just in case.
+        // Debug.Log(MeaningfulLogin.ToString());
 
         hunger = PlayerPrefs.GetInt("Hunger");
         friendship = PlayerPrefs.GetInt("Friendship");
@@ -62,7 +62,7 @@ public class GameSaver : MonoBehaviour
             clean -= decayVal;
         }
 
-        // Make sure nothing is below 0, and then make sure nothing is above the max. It shouldn't be above the max, but... paranoia.
+        // Make sure nothing is below 0, because after our decay, it has a good chance of being so.
         hunger = Math.Max(hunger, 0);
         friendship = Math.Max(friendship, 0);
         clean = Math.Max(clean, 0);

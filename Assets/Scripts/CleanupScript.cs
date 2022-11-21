@@ -14,7 +14,7 @@ public class CleanupScript : MonoBehaviour
     public GameObject ParentUI;
     public GameObject Bunny;
     public GameObject Canvas;
-    public GameObject[] MessyPrefabs;
+    public GameObject Messy;
 
     // INTERNAL VARIABLES
     float width, height;
@@ -27,12 +27,11 @@ public class CleanupScript : MonoBehaviour
         width = Screen.width * 0.5f;
         height = Screen.height * 0.5f;
         // Because I'm stupid, this does not take into account conversion between pixels and Units in Unity.
-        // Unless... actually, making the prefab a child of the Canvas could theoretically solve this.
-        // NOTE: Not only does this work for placement, but somehow, OnMouseOver works again. Not sure if it works on actual mobile builds though.
+        // Note: This issue can be fixed later by using Camera.main.ScreenToWorldPoint in order to use more of the screen for randomness.
     }
 
     void FixedUpdate()
-    {
+    { // As this only needs to run every once in a while, I have this script set to use Fixed Update. I apparently didn't feel like using another public variable to keep track of the count.
         if (isActive)
         {
             // This is how we check how many messes remain. If this becomes zero, we cleaned the whole place.
@@ -42,15 +41,17 @@ public class CleanupScript : MonoBehaviour
             }
         }
     }
+    // This minigame does not have a Back button because... I forgot to add one in for this build.
+    // But it also makes sense. Your bunny needs to have good clean home.
     public void Activate()
     {
         SpawnMess();
         isActive = true;
-        // TODO: Hide all the UI elements except for the messes we spawned,, and the bars. 
         ParentUI.SetActive(false);
         Bunny.SetActive(false);
     }
 
+    // Ironically, a built in failsafe, should I implement the Back Button in this minigame, and it's still inefficient.
     public void Deactivate()
     {
         foreach (GameObject item in GameObject.FindGameObjectsWithTag("Mess"))
@@ -58,7 +59,6 @@ public class CleanupScript : MonoBehaviour
             Destroy(item);
         }
         isActive = false;
-        //TODO: Unhide everything we hid earlier, and put them back if needed.
         ParentUI.SetActive(true);
         Bunny.SetActive(true);
         Saver.Save();
@@ -70,7 +70,8 @@ public class CleanupScript : MonoBehaviour
         {
             float tempX = Random.Range(width * 0f, width * 2f);
             float tempY = Random.Range(height * 0f, height * 2f);
-            GameObject mess = Instantiate(MessyPrefabs[0]);
+            GameObject mess = Instantiate(Messy);
+            // Change this stuff to utilize Camera.main.ScreenToWorldPoint in later builds, Nate.
             mess.transform.position = new Vector2(tempX, tempY).normalized * Random.Range(-2f, 2f);
             mess.transform.SetParent(Canvas.transform);
         }

@@ -7,13 +7,16 @@ using UnityEngine;
 
 public class FeedBunnyScript: MonoBehaviour
 {
-
+    // TODO: Holy crap make this more readable, add some comments, ANYTHING NATE I BEG YOU.
+    // JUST BECAUSE YOU CAN READ IT DOESN'T MEAN IT'S READABLE TO SANE PEOPLE
+    // ~ Nathaniel Owens, 2022
     public GameManager GM;
     public GameSaver Saver;
     public GameObject ParentUI;
     public GameObject Bunny;
     public GameObject Carrot;
     public GameObject BackButton;
+
     public bool isActive = false;
     // So we don't get stuck on frame 1 of the eating animation.
     bool animating;
@@ -21,12 +24,13 @@ public class FeedBunnyScript: MonoBehaviour
     // Stuff for the Carrot
     Touch tipTap;
     float deltaX, deltaY;
-    public AudioSource jej;
-    public AudioClip fof;
+    public AudioSource speaker;
+    public AudioClip boop;
     public Animator animator;
     private Rigidbody2D CarrotRb;
     GameObject temp;
-    int carrotCount = 0;
+    int carrotBites = 0;
+
     public void Activate()
     {
         isActive = true;
@@ -48,9 +52,9 @@ public class FeedBunnyScript: MonoBehaviour
         }
         Saver.Save();
         animating = false;
-        animator.SetFloat("Antici", 0);
         animator.SetFloat("Chew", 0);
-        carrotCount = 0;
+        animator.SetFloat("Antici", 0);
+        carrotBites = 0;
     }
 
     void Update()
@@ -78,21 +82,21 @@ public class FeedBunnyScript: MonoBehaviour
     {
         animator.SetFloat("Antici", 0);
         animator.SetFloat("Chew", 1);
-        bool gaming = true;
-        while (gaming)
+        bool chewing = true;
+        while (chewing)
         {
-            jej.PlayOneShot(fof);
+            speaker.PlayOneShot(boop);
             Saver.hunger += 15;
             if (Saver.hunger > Saver.maxVal)
             {
                 Saver.hunger = Saver.maxVal;
             }
             GM.UpdateBar();
-            carrotCount++;
-            if (carrotCount >= 3)
+            carrotBites++;
+            if (carrotBites >= 3)
             {
                 Deactivate();
-                gaming = false;
+                chewing = false;
             }
             yield return new WaitForSeconds(1.5f);
         }

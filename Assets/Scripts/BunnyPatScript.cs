@@ -7,6 +7,7 @@ using UnityEngine;
 
 public class BunnyPatScript : MonoBehaviour
 {
+    // External References ~ Just about everything
     public GameManager GM;
     public GameSaver Saver;
     public GameObject ParentUI;
@@ -14,6 +15,7 @@ public class BunnyPatScript : MonoBehaviour
     public GameObject BackButton;
     public Animator animator;
 
+    // Internal Variables
     [SerializeField] bool isActive = false;
     float patTotal = 0.0f;
     Touch fingy;
@@ -21,14 +23,15 @@ public class BunnyPatScript : MonoBehaviour
 
     public void Activate()
     {
+        // Hides our three main buttons and shows the Back Button.
         isActive = true;
-        // TODO: Hide the three Buttons, and spawn the Back button.
         ParentUI.SetActive(false);
         BackButton.SetActive(true);
     }
 
     public void Deactivate()
     {
+        // The exact opposite of the above function.
         isActive = false;
         ParentUI.SetActive(true);
         BackButton.SetActive(false);
@@ -37,7 +40,7 @@ public class BunnyPatScript : MonoBehaviour
 
     float CalcDist(Vector2 first, Vector2 last)
     {
-        // Calculating Distance formula using Mathf.Pow for both squares and square root.
+        // Calculating distance formula using Mathf.Pow for both squares and square root.
         float temp = Mathf.Pow((last.x - first.x), 2) + Mathf.Pow((last.y - first.y), 2);
         temp = Mathf.Pow(temp, 0.5f);
         return temp;
@@ -57,6 +60,7 @@ public class BunnyPatScript : MonoBehaviour
             else if (fingy.phase == TouchPhase.Moved)
             {
                 patTotal += (CalcDist(oldPos, fingy.position));
+                // This exists because the friendship value needs to stay as an int for other functions, and I don't feel like reworking everything else to accomodate a float.
                 if (patTotal >= 1)
                 {
                     
@@ -73,6 +77,7 @@ public class BunnyPatScript : MonoBehaviour
         }
         else
         {
+            // This technically runs a lot more often than it should, but honestly, it's not hurting anyone.
             animator.SetFloat("Pet", 0);
         }
     }

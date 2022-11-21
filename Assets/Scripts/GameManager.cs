@@ -10,34 +10,29 @@ public class GameManager : MonoBehaviour
     // The SerializeField modifier allows us to edit these values in the Unity Editor.
     // This does not allow other scripts to see and edit them like a "public" modifier.
 
-    //~~~~~~~~~OTHER SCRIPTS CALLED~~~~~~~~~
+    // External References ~ Scripts
     [SerializeField] GameSaver SM;
     [SerializeField] CleanupScript CleanGame;
     [SerializeField] BunnyPatScript PatGame;
     [SerializeField] FeedBunnyScript FeedGame;
 
-    //~~~~~~~~~~~~~GAME OBJECTS~~~~~~~~~~~~~
+    // External References - UI Related
     [SerializeField] GameObject ParentUI;
     [SerializeField] GameObject HungerBar;
     [SerializeField] GameObject CleanBar;
     [SerializeField] GameObject HappyBar;
-    public Animator animator;
-
-    //~~~~~~~~~~~~~PROGRESS BARS~~~~~~~~~~~~
-    // Doing it like this takes more memory but makes it a tad easier to edit the width later.
+    // Easier way to refer to the RectTransform of the above items, especially since those objects are actually empty parents of the things we want to edit.
     public RectTransform happyRect;
     public RectTransform hungerRect;
     public RectTransform cleanRect;
 
+    // External Variables ~ Audio and Animation
     public AudioClip sound;
     public AudioSource speak;
+    public Animator animator;
 
-    public void makeNoise()
-    {
-        speak.PlayOneShot(sound);
-    }
 
-    //~~~~~~~~~~~~~~~VARIABLES~~~~~~~~~~~~~~
+    // Internal Variables
     int maxBarVal = 100;
     [SerializeField] int MaxBarLength;
     float elapsed = 0;
@@ -50,8 +45,8 @@ public class GameManager : MonoBehaviour
         StartCoroutine("Stretch");
     }
 
-    // Update is called once per frame
-    void Update()
+    // Honestly, this should just be a Coroutine as well, this will be reflected in later builds.
+    void FixedUpdate()
     {
         elapsed += Time.deltaTime;
         if (elapsed > 60)
@@ -60,6 +55,7 @@ public class GameManager : MonoBehaviour
             elapsed = 0;
         }
     }
+    // Causes our bunny to use the Stand animation every 15 seconds, assuming we aren't in a minigame. That last part is handled via the hacky way I set up the Animator
     IEnumerator Stretch()
     {
         while (true)
@@ -74,15 +70,22 @@ public class GameManager : MonoBehaviour
     //If there's a more efficient way to update a progress bar, then I would love to know it.
     public void UpdateBar(RectTransform TheBar, int val)
     {
-        // Prevents us from having values above our set maximum 
+        // Prevents us from having values above our set maximum.
+        // Ironically, every thing that increases these stats already does this, as the val here doesn't affect the actual variable.
         val = Mathf.Min(val, maxBarVal);
         TheBar.sizeDelta = new Vector2((float)(MaxBarLength / maxBarVal) * val, TheBar.rect.height);
     }
-    //Generic version of UpdateBar that automatically updates all three rather than just one
+    // Generic version of UpdateBar that automatically updates all three rather than just one
     public void UpdateBar()
     {
         UpdateBar(happyRect, SM.friendship);
         UpdateBar(cleanRect, SM.clean);
         UpdateBar(hungerRect, SM.hunger);
+    }
+
+    // Utilized by our buttons to provide feedback to prove they were clicked.
+    public void makeNoise()
+    {
+        speak.PlayOneShot(sound);
     }
 }

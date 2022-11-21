@@ -2448,12 +2448,12 @@ MonoBehaviour:
   HungerBar: {fileID: 876529291}
   CleanBar: {fileID: 706099564}
   HappyBar: {fileID: 1662532113}
-  animator: {fileID: 955245436}
   happyRect: {fileID: 1335350316}
   hungerRect: {fileID: 1898008162}
   cleanRect: {fileID: 308255958}
   sound: {fileID: 8300000, guid: 044d62ac26561264fb20eb0fd0c039aa, type: 3}
   speak: {fileID: 894225133}
+  animator: {fileID: 955245436}
   MaxBarLength: 250
 --- !u!114 &1515843466
 MonoBehaviour:
@@ -2594,8 +2594,7 @@ MonoBehaviour:
   ParentUI: {fileID: 128669889}
   Bunny: {fileID: 955245433}
   Canvas: {fileID: 1704270224}
-  MessyPrefabs:
-  - {fileID: 2403293159443817674, guid: 60ccaf30b3b00ea46856e3f4586c5207, type: 3}
+  Messy: {fileID: 2403293159443817674, guid: 60ccaf30b3b00ea46856e3f4586c5207, type: 3}
   isActive: 0
 --- !u!4 &1648828273
 Transform:
