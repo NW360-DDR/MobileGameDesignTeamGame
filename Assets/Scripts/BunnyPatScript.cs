@@ -14,13 +14,11 @@ public class BunnyPatScript : MonoBehaviour
     public GameObject Bunny;
     public GameObject BackButton;
     public Animator animator;
-
     // Internal Variables
     [SerializeField] bool isActive = false;
     float patTotal = 0.0f;
     Touch fingy;
     Vector2 oldPos;
-
     public void Activate()
     {
         // Hides our three main buttons and shows the Back Button.
@@ -28,7 +26,6 @@ public class BunnyPatScript : MonoBehaviour
         ParentUI.SetActive(false);
         BackButton.SetActive(true);
     }
-
     public void Deactivate()
     {
         // The exact opposite of the above function.
@@ -37,7 +34,6 @@ public class BunnyPatScript : MonoBehaviour
         BackButton.SetActive(false);
         Saver.Save();
     }
-
     float CalcDist(Vector2 first, Vector2 last)
     {
         // Calculating distance formula using Mathf.Pow for both squares and square root.
@@ -45,7 +41,6 @@ public class BunnyPatScript : MonoBehaviour
         temp = Mathf.Pow(temp, 0.5f);
         return temp;
     }
-
     private void FixedUpdate()
     {
         if (isActive && Input.touchCount > 0)
@@ -54,7 +49,6 @@ public class BunnyPatScript : MonoBehaviour
             animator.SetFloat("Pet", 1);
             if (fingy.phase == TouchPhase.Began)
             {
-                
                 oldPos = fingy.position;
             }
             else if (fingy.phase == TouchPhase.Moved)
@@ -63,8 +57,6 @@ public class BunnyPatScript : MonoBehaviour
                 // This exists because the friendship value needs to stay as an int for other functions, and I don't feel like reworking everything else to accomodate a float.
                 if (patTotal >= 1)
                 {
-                    
-
                     patTotal -= 1;
                     Saver.friendship += 1;
                     if (Saver.friendship > Saver.maxVal)

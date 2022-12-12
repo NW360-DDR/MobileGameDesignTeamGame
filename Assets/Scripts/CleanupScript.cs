@@ -15,11 +15,9 @@ public class CleanupScript : MonoBehaviour
     public GameObject Bunny;
     public GameObject Canvas;
     public GameObject Messy;
-
     // INTERNAL VARIABLES
     float width, height;
     [SerializeField] bool isActive = false;
-
     // Start is called before the first frame update
     void Start()
     {
@@ -29,7 +27,6 @@ public class CleanupScript : MonoBehaviour
         // Because I'm stupid, this does not take into account conversion between pixels and Units in Unity.
         // Note: This issue can be fixed later by using Camera.main.ScreenToWorldPoint in order to use more of the screen for randomness.
     }
-
     void FixedUpdate()
     { // As this only needs to run every once in a while, I have this script set to use Fixed Update. I apparently didn't feel like using another public variable to keep track of the count.
         if (isActive)
@@ -50,7 +47,6 @@ public class CleanupScript : MonoBehaviour
         ParentUI.SetActive(false);
         Bunny.SetActive(false);
     }
-
     // Ironically, a built in failsafe, should I implement the Back Button in this minigame, and it's still inefficient.
     public void Deactivate()
     {
@@ -63,7 +59,6 @@ public class CleanupScript : MonoBehaviour
         Bunny.SetActive(true);
         Saver.Save();
     }
-
     void SpawnMess()
     {
         for (int i = 0; i < 3; i += 1)

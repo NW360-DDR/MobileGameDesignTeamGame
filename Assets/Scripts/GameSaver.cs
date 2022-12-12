@@ -49,11 +49,9 @@ public class GameSaver : MonoBehaviour
         MeaningfulLogin = DateTime.Parse(PlayerPrefs.GetString("Meaningful"));
         // This debug log exists to make sure that parsing worked properly. We don't need it anymore, but it's here just in case.
         // Debug.Log(MeaningfulLogin.ToString());
-
         hunger = PlayerPrefs.GetInt("Hunger");
         friendship = PlayerPrefs.GetInt("Friendship");
         clean = PlayerPrefs.GetInt("Cleanliness");
-
         // And now we must commit the act of changing the values based on time passed.
         for (int i = 0; i < (int) CurrentLogin.Subtract(MeaningfulLogin).TotalHours; i++)
         {
@@ -61,7 +59,6 @@ public class GameSaver : MonoBehaviour
             friendship -= decayVal;
             clean -= decayVal;
         }
-
         // Make sure nothing is below 0, because after our decay, it has a good chance of being so.
         hunger = Math.Max(hunger, 0);
         friendship = Math.Max(friendship, 0);

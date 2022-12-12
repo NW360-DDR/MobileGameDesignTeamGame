@@ -9,13 +9,11 @@ public class GameManager : MonoBehaviour
 {
     // The SerializeField modifier allows us to edit these values in the Unity Editor.
     // This does not allow other scripts to see and edit them like a "public" modifier.
-
     // External References ~ Scripts
     [SerializeField] GameSaver SM;
     [SerializeField] CleanupScript CleanGame;
     [SerializeField] BunnyPatScript PatGame;
     [SerializeField] FeedBunnyScript FeedGame;
-
     // External References - UI Related
     [SerializeField] GameObject ParentUI;
     [SerializeField] GameObject HungerBar;
@@ -25,18 +23,14 @@ public class GameManager : MonoBehaviour
     public RectTransform happyRect;
     public RectTransform hungerRect;
     public RectTransform cleanRect;
-
     // External Variables ~ Audio and Animation
     public AudioClip sound;
     public AudioSource speak;
     public Animator animator;
-
-
     // Internal Variables
     int maxBarVal = 100;
     [SerializeField] int MaxBarLength;
     float elapsed = 0;
-
     // Start is called before the first frame update
     void Start()
     {
@@ -44,7 +38,6 @@ public class GameManager : MonoBehaviour
         UpdateBar();
         StartCoroutine("Stretch");
     }
-
     // Honestly, this should just be a Coroutine as well, this will be reflected in later builds.
     void FixedUpdate()
     {
@@ -66,7 +59,6 @@ public class GameManager : MonoBehaviour
             animator.ResetTrigger("Stand");
         }
     }
-
     //If there's a more efficient way to update a progress bar, then I would love to know it.
     public void UpdateBar(RectTransform TheBar, int val)
     {
@@ -82,7 +74,6 @@ public class GameManager : MonoBehaviour
         UpdateBar(cleanRect, SM.clean);
         UpdateBar(hungerRect, SM.hunger);
     }
-
     // Utilized by our buttons to provide feedback to prove they were clicked.
     public void makeNoise()
     {

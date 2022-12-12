@@ -70,12 +70,8 @@ public class FeedBunnyScript: MonoBehaviour
             {
                 StartCoroutine("HungyBoi");
                 animating = true;
-
             }
-
-
         }
-
     }
 
     IEnumerator HungyBoi()
@@ -101,6 +97,4 @@ public class FeedBunnyScript: MonoBehaviour
             yield return new WaitForSeconds(1.5f);
         }
     }
-
-
 }
